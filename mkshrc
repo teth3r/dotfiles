@@ -13,7 +13,8 @@ done
 export PHONE_STORAGE="/mnt/sdcard"
 
 export HOME="$PHONE_STORAGE"
-export HOSTNAME=$(hostname)
+export HOSTNAME="$(getprop ro.product.vendor.name)"
+
 export USER=$(id -un)
 export PWD=$(pwd)
 export TERM="xterm-256color"
@@ -36,28 +37,28 @@ MODULE_DIRECTORY=/data/adb/modules/tether
 alias bash='bash --rcfile $MODULE_DIRECTORY/system/etc/bash/.bashrc'
 
 [[ $USER == "root" ]] && {
-	PS1=$'\e[1;97m┌─[\e[1;35m$(date +%H:%M:%S)\e[1;97m] [\e[1;35m$HOSTNAME@$USER\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
+	PS1=$'\e[1;97m┌─[\e[1;35m$(date +%H:%M:%S)\e[1;97m] [\e[1;35m$USER@$HOSTNAME\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 	PS2=$'\e[1;97m┌─[\e[1;35m'
 	PS2+="$(date +%H:%M:%S)"
 	PS2+=$'\e[1;97m] [\e[1;35m'
-	PS2+="$HOSTNAME@$USER"
+	PS2+="$USER@$HOSTNAME"
 	PS2+=$'\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 }
 
 [[ $USER == "shell" ]] && {
-	PS1=$'\e[1;97m┌─[\e[1;36m$(date +%H:%M:%S)\e[1;97m] [\e[1;36m$HOSTNAME@$USER\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
+	PS1=$'\e[1;97m┌─[\e[1;36m$(date +%H:%M:%S)\e[1;97m] [\e[1;36m$USER@$HOSTNAME\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 	PS2=$'\e[1;97m┌─[\e[1;36m'
 	PS2+="$(date +%H:%M:%S)"
 	PS2+=$'\e[1;97m] [\e[1;36m'
-	PS2+="$HOSTNAME@$USER"
+	PS2+="$USER@$HOSTNAME"
 	PS2+=$'\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 }
 
 [[ $USER != "root" && $USER != "shell" ]] && {
-	PS1=$'\e[1;97m┌─[\e[1;34m$(date +%H:%M:%S)\e[1;97m] [\e[1;34m$HOSTNAME@$USER\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
+	PS1=$'\e[1;97m┌─[\e[1;34m$(date +%H:%M:%S)\e[1;97m] [\e[1;34m$USER@$HOSTNAME\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 	PS2=$'\e[1;97m┌─[\e[1;34m'
 	PS2+="$(date +%H:%M:%S)"
 	PS2+=$'\e[1;97m] [\e[1;34m'
-	PS2+="$HOSTNAME@$USER"
+	PS2+="$USER@$HOSTNAME"
 	PS2+=$'\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 }
