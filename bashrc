@@ -82,10 +82,17 @@ none="\[\e[00m\]"
 	}
 
 	export TMPDIR="/data/local/tmp"
+
 	# Fixes empty $USER in non-root termux
 	[[ -z $USER ]] && {
 		: '\u'
 		USER="${_@P}"
+	}
+
+	# Handles empty $HOSTNAME
+	[[ -z $HOSTNAME ]] && {
+		: '\h'
+		HOSTNAME="${_@P}"
 	}
 
 	alias external='cd $EXTERNAL_STORAGE'
@@ -100,21 +107,21 @@ none="\[\e[00m\]"
 
 	[[ $USER == "root" || $EUID -eq 0 ]] && {
 		blue=$magenta
-		PS1="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
-		PS2="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}]\n${white}╰── ${yellow}> ${none}"
+		PS1="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
+		PS2="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}]\n${white}╰── ${yellow}> ${none}"
 		cd ~
 	}
 
 	[[ $USER == "shell" || $EUID -eq 2000 ]] && {
 		blue=$cyan
-		PS1="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
-		PS2="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}]\n${white}╰── ${yellow}> ${none}"
+		PS1="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
+		PS2="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}]\n${white}╰── ${yellow}> ${none}"
 		cd ~
 	}
 
 	[[ $USER != "root" && $USER != "shell" ]] || [[ $EUID -ge 1000 ]] && {
-		PS1="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
-		PS2="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}]\n${white}╰── ${yellow}> ${none}"
+		PS1="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
+		PS2="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}]\n${white}╰── ${yellow}> ${none}"
 		cd ~
 	}
 }
@@ -132,6 +139,12 @@ none="\[\e[00m\]"
 
 	export EXTERNAL_STORAGE="/media"
 	export PHONE_STORAGE="/mnt/sdcard"
+
+	# Handles empty $HOSTNAME
+	[[ -z $HOSTNAME ]] && {
+		: '\h'
+		export HOSTNAME="${_@P}"
+	}
 
 	alias external='cd $EXTERNAL_STORAGE'
 	alias sdcard='cd $PHONE_STORAGE'
@@ -153,13 +166,13 @@ none="\[\e[00m\]"
 
 	[[ $EUID -eq 0 || $USER == "root" ]] && {
 		blue=$magenta
-		PS1="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
-		PS2="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}]\n${white}╰── ${yellow}> ${none}"
+		PS1="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
+		PS2="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}]\n${white}╰── ${yellow}> ${none}"
 	}
 
 	[[ $EUID -gt 0 || $USER != "root" ]] && {
-		PS1="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
-		PS2="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}]\n${white}╰── ${yellow}> ${none}"
+		PS1="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
+		PS2="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}]\n${white}╰── ${yellow}> ${none}"
 		cd ~
 		[[ $SHLVL -eq 4 ]] && {
 			session=$(tmux ls 2>/dev/null | wc -l)
@@ -193,13 +206,13 @@ none="\[\e[00m\]"
 
 	[[ $EUID -eq 0 || $USER == "root" ]] && {
 		blue=$magenta
-		PS1="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
-		PS2="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}]\n${white}╰── ${yellow}> ${none}"
+		PS1="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
+		PS2="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}]\n${white}╰── ${yellow}> ${none}"
 	}
 
 	[[ $EUID -gt 0 || $USER != "root" ]] && {
-		PS1="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
-		PS2="${white}┌─[${blue}\t${white}] [${blue}\h@\u${white}]\n${white}╰── ${yellow}> ${none}"
+		PS1="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}] [${green}\w${white}]\n${white}╰── ${yellow}$ ${none}"
+		PS2="${white}┌─[${blue}\t${white}] [${blue}\u@\h${white}]\n${white}╰── ${yellow}> ${none}"
 		cd ~
 		[[ $SHLVL -eq 1 ]] && {
 			session=$(tmux ls 2>/dev/null | wc -l)
