@@ -328,7 +328,7 @@ set showtabline=2
 "--------------------------------------------------------------
 " Customize tab indent, EOL
 "--------------------------------------------------------------
-set listchars=tab:│\ ,trail:⋅,extends:»,precedes:«
+set listchars=tab:¦\ ,trail:⋅,extends:»,precedes:«
 set list
 
 "--------------------------------------------------------------
