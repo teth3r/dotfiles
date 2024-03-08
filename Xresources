@@ -64,4 +64,4 @@ URxvt.cursorBlink: true
 URxvt.geometry: 132x44
 URxvt.scrollBar: false
 URxvt.scrollBar_right: false
-URxvt.font: xft:Iosevka:size=12, xft:Sarasa\ Mono\ CL:size=12
+URxvt.font: xft:Ersta:size=12
