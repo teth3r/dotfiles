@@ -102,8 +102,7 @@ none="\[\e[00m\]"
 	alias vi='busybox vi'
 	alias vim='vi'
 
-	MODULE_DIRECTORY=/data/adb/modules/tether
-	alias bash='bash --rcfile $MODULE_DIRECTORY/system/etc/bash/.bashrc'
+	[[ -f /system/etc/bash/.bashrc ]] && alias bash='bash --rcfile /system/etc/bash/.bashrc'
 
 	[[ $USER == "root" || $EUID -eq 0 ]] && {
 		blue=$magenta
@@ -152,17 +151,7 @@ none="\[\e[00m\]"
 	module_dns="/mnt/module-dnscrypt"
 
 	alias querylogs='vi $module_dns/query-logs.log'
-	alias dnslogs='vi $module_dns/dnscrypt-proxy.log'
 	alias blockedlogs='vi $module_dns/blocked-names.log'
-	alias blockedips='vi $module_dns/blocked-ips.log'
-	alias allowedlogs='vi $module_dns/allowed-names.log'
-
-	alias editallowed='vi $module_dns/allowed-names.txt'
-	alias editblocked='vi $module_dns/blocked-names.txt'
-	alias editcloaked='vi $module_dns/cloaking-rules.txt'
-	alias editblockedips='vi $module_dns/blocked-ips.txt'
-
-	alias edittether="vi /home/${SUDO_USER:=$USER}/.local/bin/tether"
 
 	[[ $EUID -eq 0 || $USER == "root" ]] && {
 		blue=$magenta
@@ -192,17 +181,7 @@ none="\[\e[00m\]"
 # Check if device has a Mediatek CPU and is an Android device
 [[ ! -d /proc/gpufreq && ! -d /sys/class/power_supply/battery ]] && {
 	alias querylogs="vi /etc/dnscrypt-proxy/query-logs.log"
-	alias dnslogs="vi /etc/dnscrypt-proxy/dnscrypt-proxy.log"
 	alias blockedlogs="vi /etc/dnscrypt-proxy/blocked-names.log"
-	alias blockedips="vi /etc/dnscrypt-proxy/blocked-ips.log"
-	alias allowedlogs="vi /etc/dnscrypt-proxy/allowed-names.log"
-
-	alias editallowed="vi /etc/dnscrypt-proxy/allowed-names.txt"
-	alias editblocked="vi /etc/dnscrypt-proxy/blocked-names.txt"
-	alias editcloaked='vi /etc/dnscrypt-proxy/cloaking-rules.txt'
-	alias editblockedips="vi /etc/dnscrypt-proxy/blocked-ips.txt"
-
-	alias edittether="vi /home/${SUDO_USER:=$USER}/.local/bin/tether"
 
 	[[ $EUID -eq 0 || $USER == "root" ]] && {
 		blue=$magenta
