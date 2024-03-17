@@ -3,10 +3,10 @@ unset EXTERNAL_STORAGE
 
 # Set external storage to USB-OTG or SD card if available
 for available_storage in /storage/*-*; do
-	[[ -d $available_storage ]] && {
+	if [ -d "$available_storage" ]; then
 		export EXTERNAL_STORAGE="$available_storage"
 		break
-	}
+	fi
 done
 
 # Set internal storage
@@ -15,8 +15,8 @@ export PHONE_STORAGE="/mnt/sdcard"
 export HOME="$PHONE_STORAGE"
 export HOSTNAME="$(getprop ro.product.vendor.name)"
 
-export USER=$(id -un)
-export PWD=$(pwd)
+export USER="$(id -un)"
+export PWD="$(pwd)"
 export TERM="xterm-256color"
 export SHELL="$0"
 export PATH=/system/bin:/system/xbin:/sbin
@@ -33,32 +33,29 @@ alias grep='grep --color=auto'
 
 alias void='ping -c4 voidlinux.org'
 
-MODULE_DIRECTORY=/data/adb/modules/tether
-alias bash='bash --rcfile $MODULE_DIRECTORY/system/etc/bash/.bashrc'
+if [ -f /system/etc/bash/.bashrc ]; then
+	alias bash='bash --rcfile /system/etc/bash/.bashrc'
+fi
 
-[[ $USER == "root" ]] && {
+if [ $USER == "root" ]; then
 	PS1=$'\e[1;97m┌─[\e[1;35m$(date +%H:%M:%S)\e[1;97m] [\e[1;35m$USER@$HOSTNAME\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 	PS2=$'\e[1;97m┌─[\e[1;35m'
 	PS2+="$(date +%H:%M:%S)"
 	PS2+=$'\e[1;97m] [\e[1;35m'
 	PS2+="$USER@$HOSTNAME"
 	PS2+=$'\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
-}
-
-[[ $USER == "shell" ]] && {
+elif [ $USER == "shell" ]; then
 	PS1=$'\e[1;97m┌─[\e[1;36m$(date +%H:%M:%S)\e[1;97m] [\e[1;36m$USER@$HOSTNAME\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 	PS2=$'\e[1;97m┌─[\e[1;36m'
 	PS2+="$(date +%H:%M:%S)"
 	PS2+=$'\e[1;97m] [\e[1;36m'
 	PS2+="$USER@$HOSTNAME"
 	PS2+=$'\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
-}
-
-[[ $USER != "root" && $USER != "shell" ]] && {
+elif [ $USER != "root" && $USER != "shell" ]; then
 	PS1=$'\e[1;97m┌─[\e[1;34m$(date +%H:%M:%S)\e[1;97m] [\e[1;34m$USER@$HOSTNAME\e[1;97m] [\e[1;32m$PWD\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
 	PS2=$'\e[1;97m┌─[\e[1;34m'
 	PS2+="$(date +%H:%M:%S)"
 	PS2+=$'\e[1;97m] [\e[1;34m'
 	PS2+="$USER@$HOSTNAME"
 	PS2+=$'\e[1;97m]\n\e[1;97m╰──\e[0m \e[1;33m$\e[0m '
-}
+fi
